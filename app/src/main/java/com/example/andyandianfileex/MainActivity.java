@@ -1,5 +1,6 @@
 package com.example.andyandianfileex;
 
+<<<<<<< HEAD
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
@@ -10,11 +11,19 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity {
 
 
+=======
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class MainActivity extends AppCompatActivity {
+
+>>>>>>> 351789be8a625a02c146df860aa59da0aaad246d
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+<<<<<<< HEAD
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -36,4 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+=======
+>>>>>>> 351789be8a625a02c146df860aa59da0aaad246d
 }
