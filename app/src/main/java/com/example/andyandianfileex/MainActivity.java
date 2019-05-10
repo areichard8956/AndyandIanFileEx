@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 
@@ -64,7 +65,8 @@ private ListView listviewFiles;
     builder.setTitle(getText(R.string.create_file));
     builder.setView(view);
     builder.setCancelable(false);
-        Dialog dialog = builder.show();
+       final Dialog dialog = builder.show();
+        // Button buttonCancel = view.findViewById(R.id.butto)
 
     }
 
