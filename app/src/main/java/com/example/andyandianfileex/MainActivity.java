@@ -1,9 +1,12 @@
 package com.example.andyandianfileex;
 
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,13 +24,13 @@ private ListView listviewFiles;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listviewFiles = findViewById(R.id.li)
+        listviewFiles = findViewById(R.id.)
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.f);
+        menuInflater.inflate(R.menu.);
         return true;
     }
 
@@ -48,6 +51,22 @@ private ListView listviewFiles;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.createFile){
+        openCreateFileDialog();
+
+        }
+
         return super.onOptionsItemSelected(item);
     }
+
+    private void openCreateFileDialog(){View view = LayoutInflater.from(getBaseContext()).inflate(R.layout.create_file_dialog_layout, null);
+    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+    builder.setTitle(getText(R.string.create_file));
+    builder.setView(view);
+    builder.setCancelable(false);
+        Dialog dialog = builder.show();
+
+    }
+
+
 }
