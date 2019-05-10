@@ -21,13 +21,13 @@ private ListView listviewFiles;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listviewFiles = findViewById(R.id.li)
+        listviewFiles = findViewById(R.id.)
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.f);
+        menuInflater.inflate(R.menu.);
         return true;
     }
 
