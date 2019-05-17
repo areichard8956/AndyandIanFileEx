@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 
@@ -24,13 +25,13 @@ private ListView listviewFiles;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listviewFiles = findViewById(R.id.)
+        listviewFiles = findViewById(R.id.listViewFiles);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.);
+        menuInflater.inflate(R.menu.file_menu, menu);
         return true;
     }
 
@@ -64,7 +65,8 @@ private ListView listviewFiles;
     builder.setTitle(getText(R.string.create_file));
     builder.setView(view);
     builder.setCancelable(false);
-        Dialog dialog = builder.show();
+       final Dialog dialog = builder.show();
+        // Button buttonCancel = view.findViewById(R.id.butto)
 
     }
 
