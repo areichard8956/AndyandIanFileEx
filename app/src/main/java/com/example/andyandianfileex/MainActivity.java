@@ -6,6 +6,7 @@ import android.demo.adapters.ListFileAdapter;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,10 +32,7 @@ private ListView listviewFiles;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         listviewFiles = findViewById(R.id.listViewFiles);
-
-
         loadData();
     }
 
