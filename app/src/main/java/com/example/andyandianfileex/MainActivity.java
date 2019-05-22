@@ -12,9 +12,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,6 +34,9 @@ private ListView listviewFiles;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listviewFiles = findViewById(R.id.listViewFiles);
+
+        registerForContextMenu(listviewFiles);
+
         loadData();
     }
 
@@ -38,7 +44,9 @@ private ListView listviewFiles;
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
+        if (v.getId() == R.id.listViewFiles){
+            menu.add(0,0,0, getText(R.string.delete));
+        }
 
 
 
@@ -48,7 +56,9 @@ private ListView listviewFiles;
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        return true;
+        if(item.getItemId() == 0) {
+deleteFiles(item);
+        }return true;
     }
 
     @Override
@@ -67,6 +77,8 @@ private ListView listviewFiles;
     builder.setView(view);
     builder.setCancelable(false);
        final Dialog dialog = builder.show();
+       final EditText editTextFileName = view.findViewById(R.id.editTextFileName);
+        final EditText editTextContent = view.findViewById(R.id.editTextContent);
         Button buttonCancel = view.findViewById(R.id.buttonCancel);
         buttonCancel.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -76,20 +88,18 @@ private ListView listviewFiles;
         buttonSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                saveFile(view);
+                saveFile(editTextFileName.getText().toString(), editTextContent.getText().toString());
                 dialog.dismiss();
             }
     });
     }
 
 
-    private void saveFile(View view) {
+    private void saveFile(String fileName, String content) {
         try{
-            EditText editTextFileNames = view.findViewById(R.id.editTextFileName);
-            EditText editTextContent = view.findViewById(R.id.editTextContent);
-            File file = new File(getFilesDir()+ File.separator + editTextFileNames.getText().toString());
+            File file = new File(getFilesDir()+ File.separator + fileName);
             FileOutputStream fileOutputStream = new FileOutputStream(file);
-            fileOutputStream.write(editTextContent.getText().toString().getBytes());
+            fileOutputStream.write(content.getBytes());
             fileOutputStream.flush();
             fileOutputStream.close();
             loadData();
@@ -97,7 +107,7 @@ private ListView listviewFiles;
 
         }
         catch (Exception e) {
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -114,4 +124,23 @@ File dir = getFilesDir();
         return true;
         }
 
+
+        private void deleteFiles(MenuItem item) {
+try {
+    AdapterView.AdapterContextMenuInfo adapterContextMenuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+    View view = adapterContextMenuInfo.targetView;
+    TextView textViewFileName = view.findViewById(R.id.textViewFileName);
+    String fileName = textViewFileName.getText().toString();
+    for(File file : getFilesDir().listFiles()) {
+        if (file.getName().equalsIgnoreCase(fileName))
+        {
+            file.delete();
+            break;
+        }
+
+    }
+    loadData();
+}
+catch (Exception e){Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show(); }
+        }
 }
