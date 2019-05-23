@@ -25,8 +25,8 @@ import java.io.FileOutputStream;
 
 public class MainActivity extends AppCompatActivity {
 
-private ListView listviewFiles;
-
+    private ListView listviewFiles;
+    private int STORAGE_PERMISSION_CODE = 1;
 
 
     @Override
@@ -57,14 +57,14 @@ private ListView listviewFiles;
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         if(item.getItemId() == 0) {
-deleteFiles(item);
+            deleteFiles(item);
         }return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.createFile){
-        openCreateFileDialog();
+            openCreateFileDialog();
 
         }
 
@@ -72,17 +72,17 @@ deleteFiles(item);
     }
 
     private void openCreateFileDialog(){View view = LayoutInflater.from(getBaseContext()).inflate(R.layout.create_file_dialog_layout, null);
-    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-    builder.setTitle(getText(R.string.create_file));
-    builder.setView(view);
-    builder.setCancelable(false);
-       final Dialog dialog = builder.show();
-       final EditText editTextFileName = view.findViewById(R.id.editTextFileName);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle(getText(R.string.create_file));
+        builder.setView(view);
+        builder.setCancelable(false);
+        final Dialog dialog = builder.show();
+        final EditText editTextFileName = view.findViewById(R.id.editTextFileName);
         final EditText editTextContent = view.findViewById(R.id.editTextContent);
         Button buttonCancel = view.findViewById(R.id.buttonCancel);
         buttonCancel.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view){dialog.dismiss();}
+            public void onClick(View view){ dialog.dismiss();}
         });
         Button buttonSave = view.findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(new View.OnClickListener(){
@@ -91,7 +91,7 @@ deleteFiles(item);
                 saveFile(editTextFileName.getText().toString(), editTextContent.getText().toString());
                 dialog.dismiss();
             }
-    });
+        });
     }
 
 
@@ -113,34 +113,36 @@ deleteFiles(item);
 
 
     private void loadData(){
-File dir = getFilesDir();
+        File dir = getFilesDir();
         ListFileAdapter listFileAdapter = new ListFileAdapter(getApplicationContext(), dir.listFiles());
         listviewFiles.setAdapter(listFileAdapter);
     }
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu){
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.file_menu, menu);
         return true;
-        }
-
-
-        private void deleteFiles(MenuItem item) {
-try {
-    AdapterView.AdapterContextMenuInfo adapterContextMenuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-    View view = adapterContextMenuInfo.targetView;
-    TextView textViewFileName = view.findViewById(R.id.textViewFileName);
-    String fileName = textViewFileName.getText().toString();
-    for(File file : getFilesDir().listFiles()) {
-        if (file.getName().equalsIgnoreCase(fileName))
-        {
-            file.delete();
-            break;
-        }
-
     }
-    loadData();
-}
-catch (Exception e){Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show(); }
+
+
+    private void deleteFiles(MenuItem item) {
+        try {
+            AdapterView.AdapterContextMenuInfo adapterContextMenuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            View view = adapterContextMenuInfo.targetView;
+            TextView textViewFileName = view.findViewById(R.id.textViewFileName);
+            String fileName = textViewFileName.getText().toString();
+            for(File file : getFilesDir().listFiles()) {
+                if (file.getName().equalsIgnoreCase(fileName))
+                {
+                    file.delete();
+                    break;
+                }
+
+            }
+            loadData();
         }
+        catch (Exception e){Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show(); }
+    }
+
+
 }
