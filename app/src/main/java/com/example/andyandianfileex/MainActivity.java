@@ -19,6 +19,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.github.paolorotolo.appintro.AppIntroFragment;
+
 import java.io.File;
 import java.io.FileOutputStream;
 
